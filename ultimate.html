@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>—͞𝐒𝐀𝐌𝐒𝐔𝐋❀━┅ღ༎° 💥</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Rajdhani', sans-serif;
+    position: fixed; /* Prevents body bounce */
+  }
+  #site-frame {
+    width: 100%; height: 100%;
+    border: none; display: block;
+  }
+
+  /* --- Winged Pet Bot Design --- */
+  #pet-bot {
+    position: absolute; width: 40px; height: 35px;
+    z-index: 10001; pointer-events: none;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+  .bot-body {
+    position: relative; width: 25px; height: 25px;
+    background: #00f2ff; margin: 0 auto; border-radius: 6px;
+    border: 2px solid #fff; box-shadow: 0 0 10px #00f2ff;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .bot-body::before { 
+    content: ""; position: absolute; width: 14px; height: 5px;
+    background: #000; border-radius: 3px; top: 6px;
+  }
+  .eye-glow {
+    position: absolute; width: 3px; height: 3px;
+    background: #ff007b; border-radius: 50%; top: 7px; left: 6px;
+    box-shadow: 0 0 4px #ff007b; animation: blink 2s infinite;
+  }
+  .eye-glow.right { left: 14px; }
+  .wing {
+    position: absolute; width: 20px; height: 12px;
+    background: rgba(0, 242, 255, 0.6); top: 4px;
+    border: 1px solid #fff; border-radius: 15px 15px 0 15px;
+  }
+  .wing.left { left: -15px; transform-origin: right; animation: flapLeft 0.2s infinite alternate; }
+  .wing.right { right: -15px; transform-origin: left; border-radius: 15px 15px 15px 0; animation: flapRight 0.2s infinite alternate; }
+  
+  @keyframes flapLeft { from { transform: rotate(0deg); } to { transform: rotate(40deg); } }
+  @keyframes flapRight { from { transform: rotate(0deg); } to { transform: rotate(-40deg); } }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  
+  .flying-mode { animation: orbit 5s linear infinite; }
+  @keyframes orbit {
+    0% { top: -30px; left: -30px; }
+    25% { top: -30px; left: 100%; }
+    50% { top: 100%; left: 100%; }
+    75% { top: 100%; left: -30px; }
+    100% { top: -30px; left: -30px; }
+  }
+  .sitting-mode {
+    top: -38px !important; left: 50% !important;
+    transform: translateX(-50%); animation: hover 2s ease-in-out infinite;
+  }
+  @keyframes hover { 0%, 100% { margin-top: 0; } 50% { margin-top: -5px; } }
+  
+  .bot-pulse { animation: pulseAnim 0.5s ease; }
+  @keyframes pulseAnim { 
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.3); filter: hue-rotate(90deg); }
+    100% { transform: translateX(-50%) scale(1); }
+  }
+
+  /* --- NEW UI DESIGN --- */
+  #overlay-wrapper {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 200px;
+    touch-action: none; /* Crucial for background lock */
+  }
+
+  #overlay-box {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: rgba(10, 15, 25, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 15px;
+    cursor: grab;
+    user-select: none;
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 15px rgba(0, 242, 255, 0.1);
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  /* Scanline effect */
+  #overlay-box::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: rgba(0, 242, 255, 0.2); animation: scan 3s linear infinite;
+    z-index: 0;
+  }
+  @keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+
+  .title-main {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: #fff; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 2px;
+    text-shadow: 0 0 10px #00f2ff;
+  }
+  .title-sub {
+    text-align: center; font-size: 9px; font-weight: 700;
+    color: #00f2ff; letter-spacing: 2px; margin-bottom: 12px;
+    opacity: 0.8;
+  }
+
+  .period-line {
+    text-align: center; font-size: 11px; color: #fff;
+    font-weight: 700; margin-bottom: 10px;
+    background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.2), transparent);
+    padding: 4px 0; border-top: 1px solid rgba(0, 242, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+  }
+
+  /* LOGIN DESIGN */
+  #login-section { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
+  .password-input {
+    width: 100%; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(0, 242, 255, 0.3);
+    border-radius: 8px; padding: 8px; color: #00f2ff; font-size: 12px;
+    outline: none; margin-bottom: 10px; text-align: center;
+    font-family: 'Orbitron', sans-serif;
+  }
+  .btn-login {
+    width: 100%; background: #00f2ff; color: #000;
+    font-weight: 900; font-size: 12px; text-transform: uppercase;
+    border: none; border-radius: 8px; padding: 8px; cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+    transition: 0.3s;
+  }
+  .btn-login:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+
+  /* PREDICTION AREA DESIGN */
+  #pred-section { display: none; position: relative; z-index: 1; }
+  .next-signal { text-align: center; font-size: 12px; font-weight: 700; color: #aaa; margin-bottom: 8px; }
+  .next-signal span { color: #00f2ff; }
+
+  .prediction-label { 
+    text-align: center; margin-bottom: 10px; 
+    padding: 5px; background: rgba(255,255,255,0.03); border-radius: 10px;
+  }
+  .pred-value { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 1px; }
+  .pred-small { color: #00f2ff; text-shadow: 0 0 15px rgba(0, 242, 255, 0.6); }
+  .pred-big   { color: #ff0055; text-shadow: 0 0 15px rgba(255, 0, 85, 0.6); }
+
+  .pred-number-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+  .pred-number-box {
+    width: 50px; height: 50px; line-height: 46px; border-radius: 50%;
+    text-align: center; font-size: 24px; font-weight: 900; color: #fff;
+    border: 2px solid #fff; position: relative;
+  }
+  .pred-number-box.green { background: radial-gradient(#00f2ff, #004455); box-shadow: 0 0 20px #00f2ff; }
+  .pred-number-box.red { background: radial-gradient(#ff0055, #550011); box-shadow: 0 0 20px #ff0055; }
+
+  .btn-telegram {
+    width: 100%; background: transparent; border: 1px solid #00f2ff;
+    color: #00f2ff; font-weight: 700; font-size: 11px; border-radius: 8px;
+    padding: 8px; text-decoration: none; display: block; text-align: center;
+    transition: 0.3s; margin-top: 5px;
+  }
+  .btn-telegram:hover { background: rgba(0, 242, 255, 0.1); }
+</style>
+<link rel="me" href="https://www.blogger.com/profile/07043451664682161891" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+</head>
+<body>
+<iframe id="site-frame" src="https://hgnice.vip/#/register?invitationCode=276711470357"></iframe>
+
+<div id="overlay-wrapper">
+  <div id="pet-bot" class="flying-mode">
+    <div class="wing left"></div>
+    <div class="bot-body">
+      <div class="eye-glow"></div>
+      <div class="eye-glow right"></div>
+    </div>
+    <div class="wing right"></div>
+  </div>
+
+  <canvas id="neon-canvas" style="position:absolute;inset:-3px;border-radius:22px;pointer-events:none;z-index:2;"></canvas>
+  
+  <div id="overlay-box">
+    <div class="title-main">—͞𝐒𝐀𝐌𝐒𝐔𝐋❀━┅ღ༎° 🔥</div>
+    <div class="title-sub">—͞𝐒𝐀𝐌𝐒𝐔𝐋❀━┅ღ༎° 🔥</div>
+    
+    <div id="login-section">
+      <input class="password-input" type="password" id="pw-input" placeholder="ACCESS KEY" autocomplete="off" />
+      <div class="error-msg" id="error-msg" style="display:none; color: #ff0055; font-size: 10px; margin-bottom: 8px; font-weight: bold;">INVALID KEY!</div>
+      <button class="btn-login" onclick="doLogin()">Authenticate</button>
+    </div>
+    
+    <div id="pred-section">
+      <div class="period-line" id="period-display">CONNECTING...</div>
+      <div class="next-signal">REFRESH: <span id="countdown">30s</span></div>
+      
+      <div class="prediction-label">
+        <span class="pred-value pred-small" id="pred-label">ANALYZING</span>
+      </div>
+
+      <div class="pred-number-wrap" style="position:relative;">
+        <canvas id="num-canvas" style="position:absolute;inset:-5px;border-radius:50%;pointer-events:none;z-index:2;width:calc(100% + 10px);height:calc(100% + 10px);"></canvas>
+        <div class="pred-number-box green" id="pred-box">?</div>
+      </div>
+    </div>
+
+    <a class="btn-telegram" href="https://t.me/SAMSUL_OWNER" target="_blank">
+      JOIN TELEGRAM
+    </a>
+  </div>
+</div>
+
+<script>
+  const SECRET_PASS = "1122";
+  const bot = document.getElementById('pet-bot');
+
+  function doLogin() {
+    const pw = document.getElementById('pw-input').value.trim();
+    if (pw === SECRET_PASS) {
+      showPrediction();
+      bot.classList.remove('flying-mode');
+      bot.classList.add('sitting-mode');
+    } else {
+      document.getElementById('error-msg').style.display = 'block';
+      setTimeout(() => document.getElementById('error-msg').style.display = 'none', 2000);
+    }
+  }
+
+  function showPrediction() {
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('pred-section').style.display  = 'block';
+    startPrediction();
+  }
+
+  function botAction() {
+    bot.classList.add('bot-pulse');
+    setTimeout(() => bot.classList.remove('bot-pulse'), 600);
+  }
+
+  let currentWin = -1;
+
+  async function fetchHistoryData() {
+    try {
+      const ts = Date.now();
+      const res = await fetch(`https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json?ts=${ts}`);
+      const data = await res.json();
+      return data;
+    } catch(e) { return null; }
+  }
+
+  // --- Real Mathematical Prediction Logic ---
+  function getAnalyzedResult(historyData) {
+    if (!historyData || !historyData.data || !historyData.data.list || historyData.data.list.length < 2) {
+        // Fallback if data fails
+        return { isSmall: true, finalNum: 2 };
+    }
+
+    const list = historyData.data.list;
+    const n1 = parseInt(list[0].number); // Last number
+    const n2 = parseInt(list[1].number); // Second last number
+    
+    // Algorithm: (Last + Second Last) % 10
+    const finalNum = (n1 + n2) % 10;
+    const isSmall = finalNum < 5;
+    
+    return { isSmall, finalNum };
+  }
+
+  function startPrediction() {
+    async function tick() {
+      const now = new Date();
+      const rem = 30 - (now.getSeconds() % 30);
+      document.getElementById('countdown').textContent = rem + 's';
+
+      if (rem === 30 || currentWin === -1) {
+        currentWin = 0;
+        const history = await fetchHistoryData();
+        
+        if (history && history.data && history.data.list.length > 0) {
+            const lastIssue = history.data.list[0].issueNumber;
+            const nextIssue = (BigInt(lastIssue) + 1n).toString();
+            document.getElementById('period-display').textContent = "ID: " + nextIssue.slice(-4);
+
+            // Apply Analysis
+            const result = getAnalyzedResult(history);
+            
+            const lbl = document.getElementById('pred-label');
+            const box = document.getElementById('pred-box');
+            
+            box.textContent = result.finalNum;
+            lbl.textContent = result.isSmall ? 'SMALL' : 'BIG';
+            lbl.className = result.isSmall ? 'pred-value pred-small' : 'pred-value pred-big';
+            box.className = result.isSmall ? 'pred-number-box blue' : 'pred-number-box white';
+            
+            botAction();
+        }
+      }
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  // Neon Canvas Effect
+  (function() {
+    function initCanvas() {
+      const wrapper = document.getElementById('overlay-wrapper');
+      const canvas  = document.getElementById('neon-canvas');
+      function resize() {
+        const r = wrapper.getBoundingClientRect();
+        canvas.width = r.width + 10; canvas.height = r.height + 10;
+        canvas.style.left = '-5px'; canvas.style.top = '-5px';
+      }
+      resize();
+      const ctx = canvas.getContext('2d');
+      const R = 22;
+      function drawRing(w, h, offset, lineW, color, blur) {
+        const o = offset;
+        ctx.save(); ctx.beginPath();
+        ctx.moveTo(o + R, o); ctx.lineTo(w - o - R, o);
+        ctx.arcTo(w-o, o, w-o, o+R, R); ctx.lineTo(w-o, h-o-R);
+        ctx.arcTo(w-o, h-o, w-o-R, h-o, R); ctx.lineTo(o+R, h-o);
+        ctx.arcTo(o, h-o, o, h-o-R, R); ctx.lineTo(o, o+R);
+        ctx.arcTo(o, o, o+R, o, R); ctx.closePath();
+        ctx.lineWidth = lineW; ctx.strokeStyle = color;
+        ctx.shadowColor = color; ctx.shadowBlur = blur; ctx.stroke(); ctx.restore();
+      }
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawRing(canvas.width, canvas.height, 2, 2, '#00f2ff', 15);
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+    initCanvas();
+  })();
+
+  // Draggable System with Background Lock
+  const boxDrag = document.getElementById('overlay-box'), dragEl = document.getElementById('overlay-wrapper');
+  let isDragging = false, startX, startY, startL, startT;
+
+  boxDrag.addEventListener('mousedown', startDragging);
+  boxDrag.addEventListener('touchstart', startDragging, { passive: false });
+
+  function startDragging(e) {
+    if (['INPUT','BUTTON','A'].includes(e.target.tagName)) return;
+    
+    if (e.type === 'touchstart') e.preventDefault();
+    
+    isDragging = true;
+    const r = dragEl.getBoundingClientRect();
+    dragEl.style.transform = 'none'; 
+    dragEl.style.left = r.left + 'px'; 
+    dragEl.style.top = r.top + 'px';
+    
+    startL = r.left; startT = r.top;
+    startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+    document.addEventListener('mousemove', moveDragging);
+    document.addEventListener('touchmove', moveDragging, { passive: false });
+    document.addEventListener('mouseup', stopDragging);
+    document.addEventListener('touchend', stopDragging);
+  }
+
+  function moveDragging(ev) {
+    if (!isDragging) return;
+    ev.preventDefault(); 
+    
+    const cx = ev.type === 'touchmove' ? ev.touches[0].clientX : ev.clientX;
+    const cy = ev.type === 'touchmove' ? ev.touches[0].clientY : ev.clientY;
+    
+    dragEl.style.left = (startL + cx - startX) + 'px';
+    dragEl.style.top = (startT + cy - startY) + 'px';
+  }
+
+  function stopDragging() {
+    isDragging = false;
+    document.removeEventListener('mousemove', moveDragging);
+    document.removeEventListener('touchmove', moveDragging);
+  }
+</script>
+</body>
+</html>
